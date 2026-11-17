@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>carnet-de-recettes</title>
+
+  </head>
+
+ <body class="bg-purple-50 text-gray-800">
+
+    <header class="bg-purple-900 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-yellow-400">
+                🍲 Carnet de chef
+            </a>
+
+            <nav class="flex gap-6 font-medium">
+                <a href="#accueil" class="hover:text-yellow-400 text-amber-50">Accueil</a>
+                <a href="#recettes" class="hover:text-yellow-400 text-amber-50">Recettes</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="accueil" class="bg-purple-200 py-20 px-6">
+            <div class="max-w-7xl mx-auto text-center">
+                <p class="text-blue-900 font-semibold mb-3">
+                    BIENVENUE DANS VOTRE CUISINE
+                </p>
+
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    Découvrez des recettes du monde entier
+                </h1>
+
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Explorez de nouvelles saveurs et trouvez l'inspiration
+                    pour préparer vos prochains plats.
+                </p>
+
+                <a href="#recettes"
+                   class="inline-block mt-8 bg-blue-800 text-white px-7 py-3 rounded-full font-semibold hover:bg-black transition">
+                    Explorer les recettes
+                </a>
+            </div>
+        </section>
+
+      
+     <form id="search-form" class="flex gap-3 w-full max-w-xl mx-auto m-[25px]">
+    <input
+        type="text"
+        id="search-input"
+        placeholder="Rechercher une recette..."
+        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-purple-400 focus:border-blue-200"
+    >
+
+    <button
+        type="submit"
+        class="px-6 py-3 bg-purple-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition"
+    >
+        Rechercher
+    </button>
+</form>
+        <section id="recettes" class="max-w-7xl mx-auto px-6 py-16">
+
+            <div class="flex justify-between items-center mb-10">
+                <div>
+                    <p class="text-blue-800 font-semibold">
+                        NOTRE COLLECTION
+                    </p>
+                    <h2 class="text-3xl font-bold mt-2">
+                        Nos recettes
+                    </h2>
+                </div>
+
+                <p id="recipes-count"
+                   class="bg-purple-100 text-blue-800 px-4 py-2 rounded-full font-semibold">
+                    0 recette
+                </p>
+            </div>
+
+            <div id="recipes-cartes"
+                 class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="bg-purple-900 text-white py-8 text-center">
+        <p>© 2026 Mon Carnet de Recettes. Tous droits réservés.</p>
+    </footer>
+
+    <script type="module" src="./src/validation.js"></script>
+    <link rel="stylesheet" href="./src/style.css">
+    
+</body>
+</html>
