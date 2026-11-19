@@ -31,5 +31,6 @@ export async function search(recipe){
 export async function addRecipe (recipe){
     const response = await api.post("/recipes/add", recipe);
     return response.data;
-
+    
 }
+
