@@ -7,12 +7,29 @@ const api = axios.create({
 });
 
 export async function getRecipes(){
-    const response = await api.get("/recipes?limit=12");
+    const response = await api.get("/recipes/",{
+        params:{
+            limit: 12
+        }
+    }
+
+    );
     return response.data;
 };
 
 
-export async function search(recipe) {
-    const response = await api.get(`/recipes/search?q=${recipe}`);
+export async function search(recipe){
+    const response = await api.get("/recipes/search",{
+    params: {
+        q: recipe,
+        limit: 12
+    }
+});
     return response.data;
 };
+
+export async function addRecipe (recipe){
+    const response = await api.post("/recipes/add", recipe);
+    return response.data;
+
+}

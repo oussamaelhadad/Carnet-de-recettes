@@ -1,3 +1,4 @@
+import { getRecipes } from "./appels-Api";
 import "./style.css";
 
 
@@ -9,16 +10,41 @@ export function displayRecipes(recipes) {
     
     cartes.innerHTML=""
     
+
     
     compteur.textContent = `${recipes.length} recipes`;
 
 
     if(recipes.length === 0){
         const message = document.createElement("p");
+        const btn = document.createElement("button");
+
+
         message.textContent = "Aucune recette trouvée.";
+        btn.textContent = "Revoir toutes les recettes";
+
+
         message.className="text-center text-red-500 text-[27px]";
-        
+        btn.className = "bg-purple-600 text-white px-6 py-3 rounded-lg mt-4";
+                   
+
         cartes.appendChild(message);
+        cartes.appendChild(btn);
+
+      btn.addEventListener("click", async () => {
+
+        const searchInput = document.getElementById("search-input")
+        searchInput.value = ""
+
+        const data = await getRecipes();
+        
+        
+        displayRecipes(data.recipes);
+
+
+    }
+    );
+
         return;
     }
 
