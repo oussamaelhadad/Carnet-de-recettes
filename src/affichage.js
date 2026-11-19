@@ -40,8 +40,7 @@ export function displayRecipes(recipes) {
         
         
         displayRecipes(data.recipes);
-
-
+        
     }
     );
 
@@ -61,8 +60,8 @@ export function displayRecipes(recipes) {
 
         titre.textContent = recipe.name
         details.textContent = [`${recipe.prepTimeMinutes} min`,
-                                `${recipe.difficulty}`,
-                                `${recipe.cuisine}`]
+        `${recipe.difficulty}`,
+        `${recipe.cuisine}`]
         
 
         card.className = "bg-purple-100 rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition";
