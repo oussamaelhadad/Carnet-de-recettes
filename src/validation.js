@@ -1,12 +1,20 @@
-import { search, getRecipes } from "./appels-Api.js";
+import { search, getRecipes, addRecipe } from "./appels-Api.js";
 import { displayRecipes } from "./affichage.js";
-import { addRecipe } from "./appels-Api.js";
 
 
-const data = await getRecipes();
-displayRecipes(data.recipes);
+let recipesList = [];
 
-console.log(data);
+try {
+    const data = await getRecipes();
+
+    recipesList = data.recipes;
+
+    displayRecipes(recipesList);
+
+}
+catch (error) {
+    console.log("Erreur de chargement :", error.message);
+}
 
 
 const searchForm = document.getElementById("search-form");
@@ -109,15 +117,23 @@ if (valider) {
         prepTimeMinutes: time
     };
 
-    try {
-        const data = await addRecipe(recipe);
-        console.log(data);
-         form.reset();
+   try {
+    const newRecipe = await addRecipe(recipe);
 
-    }
-    catch (error) {
-        console.log(error);
-    }
+    console.log(newRecipe);
+
+   recipesList.unshift(newRecipe);
+
+    displayRecipes(recipesList);
+
+    form.reset();
 
 }
-})
+
+catch (error) {
+    console.log("Erreur :", error.message);
+    console.log("Status :", error.response?.status);
+    console.log("Détails :", error.response?.data);
+}
+}
+});
