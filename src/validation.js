@@ -131,9 +131,9 @@ if (valider) {
 }
 
 catch (error) {
-    console.log("Erreur :", error.message);
-    console.log("Status :", error.response?.status);
-    console.log("Détails :", error.response?.data);
+   
+ console.log("Erreur :", error.message);                                
+
 }
 }
 });
