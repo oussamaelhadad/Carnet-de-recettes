@@ -34,3 +34,8 @@ export async function addRecipe (recipe){
 
 }
 
+export async function removeRecipe (id){
+    const response = await api.delete(`/recipes/${id}`);
+    return response.data;
+}
+
