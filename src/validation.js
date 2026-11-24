@@ -4,7 +4,19 @@ import { displayRecipes } from "./affichage.js";
 
 let recipesList = [];
 
+const loading = document.getElementById("loading");
+
+function afficherLoading() {
+    loading.classList.remove("hidden");
+}
+
+function cacherLoading() {
+    loading.classList.add("hidden");
+}
+
 try {
+    afficherLoading();
+
     const data = await getRecipes();
 
     recipesList = data.recipes;
@@ -14,6 +26,10 @@ try {
 }
 catch (error) {
     console.log("Erreur de chargement :", error.message);
+}
+
+finally{
+    cacherLoading();
 }
 
 
@@ -31,11 +47,16 @@ searchForm.addEventListener("submit", async (event) => {
 
     if (recipe) {
         try {
+            afficherLoading();
             const data = await search(recipe);
             displayRecipes(data.recipes);
         }
         catch (error) {
             console.log(error);
+        }
+
+        finally{
+            cacherLoading();
         }
     }
     else {

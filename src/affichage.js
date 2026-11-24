@@ -61,7 +61,6 @@ export function displayRecipes(recipes) {
         details.textContent = `${recipe.prepTimeMinutes} min`,
         `${recipe.difficulty}`,
         `${recipe.cuisine}`
-
         btnremove.textContent = "supprimer"
         
 
