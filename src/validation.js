@@ -126,6 +126,11 @@ if (valider) {
 
     displayRecipes(recipesList);
 
+    const messageSucces = document.getElementById("message-succes");
+
+    messageSucces.textContent = "Recette ajoutée avec succès !";
+    messageSucces.className = "text-green-600 mt-3";
+
     form.reset();
 
 }

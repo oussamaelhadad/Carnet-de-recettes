@@ -57,11 +57,10 @@ export function displayRecipes(recipes) {
 
         image.src = recipe.image;
         image.alt = recipe.name;
-
-        titre.textContent = recipe.name
-        details.textContent = [`${recipe.prepTimeMinutes} min`,
+        titre.textContent = recipe.name;
+        details.textContent = `${recipe.prepTimeMinutes} min`,
         `${recipe.difficulty}`,
-        `${recipe.cuisine}`]
+        `${recipe.cuisine}`
 
         btnremove.textContent = "supprimer"
         
@@ -78,11 +77,20 @@ export function displayRecipes(recipes) {
         card.appendChild(btnremove);
         cartes.appendChild(card);
         
-        btnremove.addEventListener("click", async () =>{
-       await removeRecipe(recipe.id);
-      recipesList = recipesList.filter(recipe => recipe.id !== recipes.id);
-      displayRecipes(recipesList);
-    })
+       btnremove.addEventListener("click", async () => {
+
+         const confirmation = confirm("Voulez-vous vraiment supprimer cette recette ?");
+
+        if (!confirmation) {
+        return;
+        }
+
+    if (recipe.id <= 50) {
+        await removeRecipe(recipe.id);
+    }
+    const newRecipes = recipes.filter(r => r.id !== recipe.id); 
+    displayRecipes(newRecipes);
+    });
     });
 }
 
