@@ -78,19 +78,47 @@ export function displayRecipes(recipes) {
         
        btnremove.addEventListener("click", async () => {
 
-         const confirmation = confirm("Voulez-vous vraiment supprimer cette recette ?");
+    const confirmation = confirm("Voulez-vous vraiment supprimer cette recette ?");
 
-        if (!confirmation) {
+    if (!confirmation) {
         return;
-        }
-
-    if (recipe.id <= 50) {
-        await removeRecipe(recipe.id);
     }
-    const newRecipes = recipes.filter(r => r.id !== recipe.id); 
-    displayRecipes(newRecipes);
-    });
-    });
+
+    const derniereRequete = async () => {
+        try {
+            const errorContainer = document.getElementById("error-container");
+            errorContainer.innerHTML = "";
+
+            if (recipe.id <= 50) {
+                await removeRecipe(recipe.id);
+            }
+
+            const newRecipes = recipes.filter(r => r.id !== recipe.id);
+            displayRecipes(newRecipes);
+
+        } catch (error) {
+            const errorContainer = document.getElementById("error-container");
+            errorContainer.innerHTML = "";
+
+            const message = document.createElement("p");
+            const btn = document.createElement("button");
+
+            message.textContent = error.message;
+            btn.textContent = "Réessayer";
+
+            message.className = "text-red-500";
+            btn.className = "bg-purple-600 text-white px-4 py-2 rounded-lg mt-3";
+
+            errorContainer.appendChild(message);
+            errorContainer.appendChild(btn);
+
+            btn.addEventListener("click", derniereRequete);
+        }
+    };
+
+    await derniereRequete();
+});
+});
 }
 
 

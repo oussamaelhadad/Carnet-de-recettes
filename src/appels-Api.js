@@ -69,7 +69,7 @@ export async function removeRecipe (id){
 function gererErreur(error) {
 
     if (!error.response) {
-        throw new Error("Serveur injoignable.");
+        throw new Error("Erreur de connexion. Vérifiez votre internet.");
     }
 
     if (error.response.status === 404) {

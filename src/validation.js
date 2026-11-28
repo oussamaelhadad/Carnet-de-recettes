@@ -3,6 +3,7 @@ import { displayRecipes } from "./affichage.js";
 
 
 let recipesList = [];
+let derniereRequete = null;
 
 const loading = document.getElementById("loading");
 
@@ -13,6 +14,34 @@ function afficherLoading() {
 function cacherLoading() {
     loading.classList.add("hidden");
 }
+
+function afficherErreur(error) {
+
+ const container = document.getElementById("error-container");
+
+container.innerHTML = "";
+
+const message = document.createElement("p");
+const btn = document.createElement("button");
+
+message.textContent = error.message;
+btn.textContent = "Réessayer";
+
+message.className = "text-red-500";
+btn.className = "bg-purple-600 text-white px-4 py-2 rounded-lg mt-3";
+
+container.appendChild(message);
+container.appendChild(btn);
+
+btn.addEventListener("click", async () => {
+    if (derniereRequete) {
+        await derniereRequete();
+        }
+    });
+}
+
+derniereRequete = () => getRecipes();
+
 
 try {
     afficherLoading();
@@ -25,7 +54,7 @@ try {
 
 }
 catch (error) {
-    console.log("Erreur de chargement :", error.message);
+    afficherErreur(error);
 }
 
 finally{
@@ -45,21 +74,30 @@ searchForm.addEventListener("submit", async (event) => {
 
     const recipe = searchInput.value.trim();
 
-    if (recipe) {
-        try {
-            afficherLoading();
-            const data = await search(recipe);
-            displayRecipes(data.recipes);
-        }
-        catch (error) {
-            console.log(error);
-        }
+if (recipe) {
 
-        finally{
-            cacherLoading();
-        }
+derniereRequete = async () => {
+
+ try {
+    afficherLoading();
+
+    const data = await search(recipe);
+    displayRecipes(data.recipes);
+
+    document.getElementById("error-container").innerHTML = ""
+}
+catch (error) {
+        afficherErreur(error);
     }
-    else {
+
+finally {
+    cacherLoading();
+    }
+    };
+
+await derniereRequete();
+}
+else {
         searchInput.classList.add("border-red-500");
         searchInput.placeholder = "Veuillez saisir une recette";
     }
@@ -137,30 +175,41 @@ if (valider) {
         difficulty: difficulty,
         prepTimeMinutes: time
     };
+derniereRequete = async () => {   
 
-   try {
-    const newRecipe = await addRecipe(recipe);
+    try {
+            afficherLoading();
 
-    console.log(newRecipe);
+            const newRecipe = await addRecipe(recipe);
 
-   recipesList.unshift(newRecipe);
+            console.log(newRecipe);
 
-    displayRecipes(recipesList);
+            recipesList.unshift(newRecipe);
 
-    const messageSucces = document.getElementById("message-succes");
+            displayRecipes(recipesList);
 
-    messageSucces.textContent = "Recette ajoutée avec succès !";
-    messageSucces.className = "text-green-600 mt-3";
+            document.getElementById("error-container").innerHTML = "";
 
-    form.reset();
+            const messageSucces = document.getElementById("message-succes");
 
+            messageSucces.textContent = "Recette ajoutée avec succès !";
+            messageSucces.className = "text-green-600 mt-3";
+
+            form.reset();
+
+        }
+
+        catch (error) {
+            afficherErreur(error);
+        }
+
+        finally {
+            cacherLoading();
+        }
+    };
+
+    await derniereRequete();
 }
-
-catch (error) {
-   
- console.log("Erreur :", error.message);                                
-
-}
-}
+ 
 });
 
